@@ -1,4 +1,13 @@
-import database as db
+import database
+import crypto
+import getpass
+import session
+import string
+import secrets
+
+current_session = session.Session()
+
+CHECK_PHRASE = "hi_i_am_here"
 
 db.init_db()
 
