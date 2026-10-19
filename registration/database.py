@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
-DB_NAME = "./database/users.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "..", "database")
+DB_PATH =os.path.join(DB_DIR, "USERS.db")
 
 def get_connection():
-    db_con = sqlite3.connect("./database/users.db")
+    db_con = sqlite3.connect(DB_PATH)
     db_con.execute("PRAGMA foreign_keys = ON;")
     return db_con
 
