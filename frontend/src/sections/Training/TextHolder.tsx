@@ -1,6 +1,6 @@
 const TextHolder = () => {
   return (
-    <div className="flex items-center max-w-270 h-90 w-full pl-10 mx-auto bg-lime-800 my-10 text-3xl text-white overflow-hidden">
+    <div className="flex items-center max-w-270 h-90 w-full pl-10 mx-auto bg-black-main my-10 text-3xl text-white overflow-hidden rounded-2xl">
       <p className="overflow-hidden whitespace-nowrap">
         lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

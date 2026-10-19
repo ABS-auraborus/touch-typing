@@ -5,13 +5,20 @@ interface ButtonProps {
   to: string;
   width?: number;
   height?: number;
+  className?: string;
 }
 
-const Button = ({children, to, width = 196, height = 64}: ButtonProps) => {
+const Button = ({
+  children,
+  to,
+  width = 196,
+  height = 64,
+  className,
+}: ButtonProps) => {
   return (
     <Link
       to={to}
-      className={`text-xl text-black flex justify-center items-center bg-gray-main`}
+      className={`text-xl text-white flex justify-center items-center bg-deep-blue ${className}`}
       style={{width, height}}
     >
       {children}
