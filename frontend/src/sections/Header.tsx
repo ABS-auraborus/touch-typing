@@ -1,9 +1,11 @@
 import {Link} from "react-router-dom";
 import Container from "../components/Container";
+import Logo from "../components/Logo";
 
 const Header = () => {
   return (
-    <header className="bg-gray-main">
+    <header className="bg-header-footer text-white">
+      <Logo className="absolute top-0 left-0" />
       <Container>
         <nav className="flex gap-4 py-6 justify-between">
           <Link to="/">Главная</Link>

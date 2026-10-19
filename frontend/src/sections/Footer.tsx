@@ -1,16 +1,15 @@
-import React from "react";
 import Container from "../components/Container";
 import {Link} from "react-router-dom";
+import Logo from "../components/Logo";
 
 const Footer = () => {
   return (
-    <footer className="py-6 bg-gray-main">
+    <footer className="py-6 bg-header-footer text-white">
       <Container>
         <div className="flex justify-between">
           <div className="flex gap-4 items-center">
-            <h5 className="text-xl">Название сайта </h5>
-            {/* <img src="" alt="" /> */}
-            <div className="size-16 bg-red-500 rounded-2xl"></div>
+            <h5 className="text-xl">BlindTypeABS</h5>
+            <Logo />
           </div>
           <div className="flex flex-col gap-1">
             <span className="text-xl">Навигация</span>

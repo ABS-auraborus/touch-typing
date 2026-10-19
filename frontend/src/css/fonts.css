@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'JetBrainsMono-Bold';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/JetBrainsMono-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrainsMono-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/JetBrainsMono-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrainsMono-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'UbuntuMono-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/UbuntuMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'UbuntuMono-Bold';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/UbuntuMono-Bold.woff2') format('woff2');
+}

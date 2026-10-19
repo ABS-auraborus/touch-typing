@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@theme {
+    --color-gray-main: #D9D9D9;
+    --color-dark-blue: #1E293B;
+    --color-main-bg: #121318;
+    --color-header-footer: #0B0B0D;
+
+    --font-jet-r: 'JetBrainsMono-Regular', monospace;
+    --font-jet-m: 'JetBrainsMono-Medium', monospace;
+    --font-jet-b: 'JetBrainsMono-Bold', monospace;
+    --font-ubuntu-r: 'UbuntuMono-Regular', monospace;
+    --font-ubuntu-b: 'UbuntuMono-Bold', monospace;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    background-color: #121318;
+    font-family: 'JetBrainsMono-Regular';
+}
