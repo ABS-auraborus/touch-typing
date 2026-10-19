@@ -1,0 +1,14 @@
+{
+  "name": "fullstack-vite-fastapi-sqlite",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+  "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+  "dev:frontend": "cd frontend && npm run dev",
+  "dev:backend": "uvicorn backend.app.main:app --reload --port 8000",
+  "install:all": "npm install && cd frontend && npm install && python -m venv venv && . venv/bin/activate 2>/dev/null || venv\\Scripts\\activate && pip install -r backend/requirements.txt"
+},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
