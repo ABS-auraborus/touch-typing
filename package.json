@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-  "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-  "dev:frontend": "cd frontend && npm run dev",
-  "dev:backend": "uvicorn backend.app.main:app --reload --port 8000",
-  "install:all": "npm install && cd frontend && npm install && python -m venv venv && . venv/bin/activate 2>/dev/null || venv\\Scripts\\activate && pip install -r backend/requirements.txt"
-},
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "uvicorn backend.app.main:app --reload --port 8000",
+    "install:all": "npm install && cd frontend && npm install && python -m venv venv && . venv/bin/activate 2>/dev/null || venv\\Scripts\\activate && pip install -r backend/requirements.txt"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/ubuntu-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
   }
 }

@@ -1,8 +1,14 @@
+import Container from "../components/Container";
+import AppPurpose from "../sections/Home/AppPurpose";
+import UsefulTo from "../sections/Home/UsefulTo";
+
 export default function HomePage() {
   return (
-    <div>
-      <h1>Добро пожаловать!</h1>
-      <p>Готовый шаблон проекта: Vite + React + React Router + FastAPI + SQLite.</p>
-    </div>
+    <main className="pt-21 bg-main-bg text-white">
+      <Container>
+        <AppPurpose />
+        <UsefulTo />
+      </Container>
+    </main>
   );
 }
