@@ -1,17 +1,23 @@
 import sqlite3
 import os
 import json
+import fastapi as fap
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "..", "database")
-DB_PATH =os.path.join(DB_DIR, "CHARS.db")
 
-def get_connection():
-    db_con = sqlite3.connect(DB_PATH)
+DB_PATH_CHAR = os.path.join(DB_DIR, "CHARS.db")
+DB_PATH_WORD = os.path.join(DB_DIR, "WORDS.db")
+DB_PATH_SENT = os.path.join(DB_DIR, "SENTENCES.db")
+
+router = APIRouter()
+
+def get_connection(path):
+    db_con = sqlite3.connect(path)
     db_con.execute("PRAGMA foreign_keys = ON;")
     return db_con
 
-def init_db():
+def init_db_chars():
     with get_connection() as con:
         db_cur = con.cursor()
 
@@ -82,8 +88,9 @@ def get_all_chars():
 
             with open("chars.json", "w", encoding = "utf-8") as out:
                 out.write(json_chars_output)
-            print("Suc: Saved json \n {json_chars_output}")
+
             return json_chars_output
+        
     except sqlite3.Error as e:
         print(f"Err: {e}")
         return Null
