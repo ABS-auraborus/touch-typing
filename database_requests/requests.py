@@ -61,7 +61,7 @@ def init_db_words():
 
         db_cur.close()
 
-@router.get("/chars/{language}/{difficult}"):
+@router.get("/chars/{language}/{difficult}")
 def get_chars_by_url(language: str, difficult: str):
     language = language.strip()
     difficult = difficult.strip()
@@ -95,7 +95,7 @@ def get_chars_by_url(language: str, difficult: str):
     except sqlite3.Error as e:
         return {"status": "error", "message": "bad db {e}"}
 
-@router.get("/words/{language}/{difficult}"):
+@router.get("/words/{language}/{difficult}")
 def get_words_by_url(language: str, difficult: str):
     language = language.strip()
     difficult = difficult.strip()
