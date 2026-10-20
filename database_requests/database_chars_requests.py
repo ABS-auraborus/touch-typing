@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import json
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "..", "database")
@@ -31,8 +32,8 @@ def init_db():
 
         db_cur.close()
 
-def get_all_chars(difficult: str):
-    result_data = {
+def get_all_chars():
+    result_chars_data = {
         "ENG":
         {
             "EASY": [],
@@ -54,20 +55,39 @@ def get_all_chars(difficult: str):
             db_cur.execute('''
                 SELECT CHARS, DIFFICULT
                 FROM ENG_CHARS
-                ''')
+            ''')
 
-            chars_dates = db_cur.fetchall()
+            chars_eng_dates = db_cur.fetchall()
             
-            for chars, difficult in chars_dates:
+            for chars, difficult in chars_eng_dates:
                 diff_key = difficult.strip()
-                if(diff_key in result_data["ENG"]):
-                    result_data['ENG'][diff_key].append(chars)
+                if(diff_key in result_chars_data["ENG"]):
+                    result_chars_data['ENG'][diff_key].append(chars)
+
+            db_cur.execute('''
+                SELECT CHARS, DIFFICULT
+                FROM RUS_CHARS
+            ''')
+
+            chars_rus_dates = db_cur.fetchall()
+            
+            for chars, difficult in chars_rus_dates:
+                diff_key = difficult.strip()
+                if(diff_key in result_chars_data["RUS"]):
+                    result_chars_data['RUS'][diff_key].append(chars)
 
             db_cur.close()
 
-            return user_dates[0], user_dates[1]
+            json_chars_output = json.dumps(result_chars_data, ensure_ascii = False, indent = 2)
+
+            with open("chars.json", "w", encoding = "utf-8") as out:
+                out.write(json_chars_output)
+            print("Suc: Saved json \n {json_chars_output}")
+            return json_chars_output
     except sqlite3.Error as e:
         print(f"Err: {e}")
+        return Null
 
 if __name__ == "__main__":
     init_db()
+    get_all_chars()
