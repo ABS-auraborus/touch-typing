@@ -11,7 +11,7 @@ const AppPurpose = () => {
         <Button to="/training">Начать задание</Button>
       </div>
       <div>
-        <div className="w-142 h-90 bg-gray-main"></div>
+        <div className="w-142 h-90 bg-black-main"></div>
         {/* <img src="" alt="" /> */}
       </div>
     </section>
