@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import TrainingPage from "./pages/TrainingPage";
 import Header from "./sections/Header";
 import Footer from "./sections/Footer";
+import StatisticsPage from "./pages/StatisticsPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/training" element={<TrainingPage />} />
+        <Route path="/statistics" element={<StatisticsPage />} />
       </Routes>
       <Footer />
     </div>
