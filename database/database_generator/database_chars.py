@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
-DB_NAME = "CHARS.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "..")
+DB_PATH =os.path.join(DB_DIR, "CHARS.db")
 
 def get_connection():
-    db_con = sqlite3.connect("CHARS.db")
+    db_con = sqlite3.connect(DB_PATH)
     db_con.execute("PRAGMA foreign_keys = ON;")
     return db_con
 
