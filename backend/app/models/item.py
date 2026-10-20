@@ -7,3 +7,4 @@ class Item(Base):
     id = Column(Integer, primary_index=True, primary_key=True, index=True)
     title = Column(String, index=True, nullable=False)
     description = Column(String, nullable=True)
+
