@@ -18,7 +18,7 @@ def get_connection(path):
     return db_con
 
 def init_db_chars():
-    with get_connection() as con:
+    with get_connection(DB_PATH_CHAR) as con:
         db_cur = con.cursor()
 
         db_cur.execute('''
@@ -38,63 +38,28 @@ def init_db_chars():
 
         db_cur.close()
 
-def get_all_chars():
-    result_chars_data = {
-        "ENG":
-        {
-            "EASY": [],
-            "MEDIUM": [],
-            "HARD": []
-        },
-        "RUS":
-        {
-            "EASY": [],
-            "MEDIUM": [],
-            "HARD": []
-        }
+@router.get("/chars/{language}/{difficult}", response_model=CharsGet):
+def get_chars_by_url(language: str, difficult: str):
+    language = language.strip()
+    difficult = difficult.strip()
 
-    }
+    if(language == "ENG"):
+        table_name = "ENG_CHARS"
+    elif(language == "RUS"):
+        table_name = "RUS_CHARS"
+    else:
+        return {"status": "error", "message": "uk language"}
+
     try:
-        with get_connection() as con:
+        with get_connection(DB_PATH_CHAR) as con:
             db_cur = con.cursor()
 
             db_cur.execute('''
                 SELECT CHARS, DIFFICULT
-                FROM ENG_CHARS
-            ''')
-
-            chars_eng_dates = db_cur.fetchall()
-            
-            for chars, difficult in chars_eng_dates:
-                diff_key = difficult.strip()
-                if(diff_key in result_chars_data["ENG"]):
-                    result_chars_data['ENG'][diff_key].append(chars)
-
-            db_cur.execute('''
-                SELECT CHARS, DIFFICULT
-                FROM RUS_CHARS
-            ''')
-
-            chars_rus_dates = db_cur.fetchall()
-            
-            for chars, difficult in chars_rus_dates:
-                diff_key = difficult.strip()
-                if(diff_key in result_chars_data["RUS"]):
-                    result_chars_data['RUS'][diff_key].append(chars)
-
-            db_cur.close()
-
-            json_chars_output = json.dumps(result_chars_data, ensure_ascii = False, indent = 2)
-
-            with open("chars.json", "w", encoding = "utf-8") as out:
-                out.write(json_chars_output)
-
-            return json_chars_output
-        
-    except sqlite3.Error as e:
-        print(f"Err: {e}")
-        return Null
+                FROM {table_name}
+                WHERE DIFFICULT = ?
+            ''', (difficult,))
 
 if __name__ == "__main__":
-    init_db()
+    init_db_chars()
     get_all_chars()
