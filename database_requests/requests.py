@@ -38,7 +38,7 @@ def init_db_chars():
 
         db_cur.close()
 
-@router.get("/chars/{language}/{difficult}", response_model=CharsGet):
+@router.get("/chars/{language}/{difficult}"):
 def get_chars_by_url(language: str, difficult: str):
     language = language.strip()
     difficult = difficult.strip()
@@ -59,7 +59,18 @@ def get_chars_by_url(language: str, difficult: str):
                 FROM {table_name}
                 WHERE DIFFICULT = ?
             ''', (difficult,))
+            raw_data = db_cur.fetchall()
+
+            chars_list = [row[0] for row in raw_data]
+
+            return {
+                "language": language,
+                "difficult": difficult,
+                "count": len(chars_list),
+                "chars": chars_list
+            }
+    except sqlite3.Error as e:
+        return {"status": "error", "message": "bad db {e}"}
 
 if __name__ == "__main__":
     init_db_chars()
-    get_all_chars()
