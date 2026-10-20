@@ -1,7 +1,7 @@
 import sqlite3
 import os
 import json
-import fastapi as fap
+from fastapi import APIRouter
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "..", "database")
@@ -56,6 +56,25 @@ def init_db_words():
             WORDS TEXT UNIQUE NOT NULL,
             REGISTER TEXT NOT NULL,
             DIFFICULT TEXT NOT NULL
+        )
+        ''')
+
+        db_cur.close()
+
+def init_db_sentences():
+    with get_connection(DB_PATH_SENT) as con:
+        db_cur = con.cursor()
+
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS ENG_SENTENCES (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            SENTENCES TEXT UNIQUE NOT NULL
+        )
+        ''')
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS RUS_SENTENCES (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            SENTENCES TEXT UNIQUE NOT NULL
         )
         ''')
 
@@ -125,6 +144,37 @@ def get_words_by_url(language: str, difficult: str):
                 "difficult": difficult,
                 "count": len(chars_list),
                 "words": words_list
+            }
+    except sqlite3.Error as e:
+        return {"status": "error", "message": "bad db {e}"}
+
+@router.get("/sentences/{language}")
+def get_sentences_by_url(language: str):
+    language = language.strip()
+
+    if(language == "ENG"):
+        table_name = "ENG_SENTENCES"
+    elif(language == "RUS"):
+        table_name = "RUS_SENTENCES"
+    else:
+        return {"status": "error", "message": "uk language"}
+
+    try:
+        with get_connection(DB_PATH_SENT) as con:
+            db_cur = con.cursor()
+
+            db_cur.execute('''
+                SELECT SENTENCES
+                FROM {table_name}
+            ''')
+            raw_data = db_cur.fetchall()
+
+            sentences_list = [row[0] for row in raw_data]
+
+            return {
+                "language": language,
+                "count": len(sentences_list),
+                "sentences": sentences_list
             }
     except sqlite3.Error as e:
         return {"status": "error", "message": "bad db {e}"}
