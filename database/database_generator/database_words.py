@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
-DB_NAME = "WORDS.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "..")
+DB_PATH =os.path.join(DB_DIR, "WORDS.db")
 
 def get_connection():
-    db_con = sqlite3.connect("WORDS.db")
+    db_con = sqlite3.connect(DB_PATH)
     db_con.execute("PRAGMA foreign_keys = ON;")
     return db_con
 
@@ -40,7 +43,7 @@ def new_rus_word(words: str, register: str, difficult: str):
                 VALUES (?, ?, ?)
             ''', (words, register, difficult))
 
-            print(f"Sucs: Added - {words}, Reg - {register}, Dif - {difficult}")
+            print(f"Sucs: Word - {words}, Reg - {register}, Dif - {difficult}")
 
             db_cur.close()
     except sqlite3.IntegrityError:
@@ -56,7 +59,7 @@ def new_eng_word(words: str, register: str, difficult: str):
                 VALUES (?, ?, ?)
             ''', (words, register, difficult))
 
-            print(f"Sucs: Added - {words}, Reg - {register}, Dif - {difficult}")
+            print(f"Sucs: Word - {words}, Reg - {register}, Dif - {difficult}")
 
             db_cur.close()
     except sqlite3.IntegrityError:
