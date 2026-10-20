@@ -31,7 +31,22 @@ def init_db():
 
         db_cur.close()
 
-def get_eng_chars(difficult: str):
+def get_all_chars(difficult: str):
+    result_data = {
+        "ENG":
+        {
+            "EASY": [],
+            "MEDIUM": [],
+            "HARD": []
+        },
+        "RUS":
+        {
+            "EASY": [],
+            "MEDIUM": [],
+            "HARD": []
+        }
+
+    }
     try:
         with get_connection() as con:
             db_cur = con.cursor()
@@ -39,33 +54,18 @@ def get_eng_chars(difficult: str):
             db_cur.execute('''
                 SELECT CHARS, DIFFICULT
                 FROM ENG_CHARS
-                WHERE DIFFICULT = ?
-                ''', (difficult,))
-
-            user_dates = db_cur.fetchall()
-            
-            db_cur.close()
-
-            return user_dates[0], user_dates[1]
-    except sqlite3.Error as e:
-        print(f"Err: {e}")
-
-def get_rus_chars(difficult: str):
-    try:
-        with get_connection() as con:
-            db_cur = con.cursor()
-
-            db_cur.execute('''
-                SELECT CHARS, DIFFICULT
-                FROM RUS_CHARS
-                WHERE DIFFICULT = ?
-                ''', (difficult,))
+                ''')
 
             chars_dates = db_cur.fetchall()
             
+            for chars, difficult in chars_dates:
+                diff_key = difficult.strip()
+                if(diff_key in result_data["ENG"]):
+                    result_data['ENG'][diff_key].append(chars)
+
             db_cur.close()
 
-            return chars_dates
+            return user_dates[0], user_dates[1]
     except sqlite3.Error as e:
         print(f"Err: {e}")
 
