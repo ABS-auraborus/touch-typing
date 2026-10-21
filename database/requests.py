@@ -1,15 +1,10 @@
 import sqlite3
-import database_init
 import os
 import json
+import database_interaction
 from fastapi import APIRouter
 
 router = APIRouter()
-
-def get_connection(path):
-    db_con = sqlite3.connect(path)
-    db_con.execute("PRAGMA foreign_keys = ON;")
-    return db_con
 
 @router.get("/{data_type}/{language}/{difficult}")
 def get_json(data_type: str, language: str, difficult: str):
@@ -22,11 +17,9 @@ def get_json(data_type: str, language: str, difficult: str):
         naming_db = f"{data_type}.db"
     else:
         return {"status": "error", "message": "inv data"}
-    
-    DB_PATH = os.path.join(database_init.DB_DIR, naming_db)
 
     try:
-        with get_connection(DB_PATH) as con:
+        with database_interaction.get_connection(data_type) as con:
             db_cur = con.cursor()
 
             db_cur.execute('''
