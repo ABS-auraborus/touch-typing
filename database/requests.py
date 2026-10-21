@@ -1,10 +1,8 @@
 import sqlite3
+import database_init
 import os
 import json
 from fastapi import APIRouter
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_DIR = os.path.join(BASE_DIR, "..", "database")
 
 router = APIRouter()
 
@@ -25,7 +23,7 @@ def get_json(data_type: str, language: str, difficult: str):
     else:
         return {"status": "error", "message": "inv data"}
     
-    DB_PATH = os.path.join(DB_DIR, naming_db)
+    DB_PATH = os.path.join(database_init.DB_DIR, naming_db)
 
     try:
         with get_connection(DB_PATH) as con:
