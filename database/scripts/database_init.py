@@ -2,6 +2,8 @@ import os
 import sqlite3
 import database_interaction
 
+
+
 def init_db_sentences():
     with database_interaction.get_connection("SENTENCES") as con:
         db_cur = con.cursor()
@@ -9,15 +11,15 @@ def init_db_sentences():
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS ENG_SENTENCES (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            SENTENCES TEXT UNIQUE NOT NULL
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            SENTENCES TEXT UNIQUE NOT NULL,
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_SENTENCES (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            SENTENCES TEXT UNIQUE NOT NULL
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            SENTENCES TEXT UNIQUE NOT NULL,
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
 
@@ -31,16 +33,14 @@ def init_db_words():
         CREATE TABLE IF NOT EXISTS ENG_WORDS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             WORDS TEXT UNIQUE NOT NULL,
-            REGISTER TEXT NOT NULL,
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_WORDS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             WORDS TEXT UNIQUE NOT NULL,
-            REGISTER TEXT NOT NULL,
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
 
@@ -52,14 +52,14 @@ def init_db_chars():
         CREATE TABLE IF NOT EXISTS ENG_CHARS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             CHARS TEXT UNIQUE NOT NULL,
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_CHARS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             CHARS TEXT UNIQUE NOT NULL,
-            DIFFICULT INTEGER NOT NULL DEFAULT 0
+            DIFFICULT TEXT NOT NULL DEFAULT 0
         )
         ''')
 
