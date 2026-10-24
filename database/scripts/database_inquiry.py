@@ -41,10 +41,11 @@ def get_user(login: str):
             user_data = db_cur.fetchall()
 
             return {
-                "login": user_data[0],
-                "salt": user_data[0],
-                "hashed_password": user_data[0]
+                "login": user_data[0][0],
+                "salt": user_data[0][1],
+                "hashed_password": user_data[0][2]
             }
     except sqlite3.Error as e:
-        return {"status": "error", "message": {e}}
+        print(f"Err: no user in db: {e}")
+        return None
     
