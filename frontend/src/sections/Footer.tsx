@@ -20,10 +20,18 @@ const Footer = () => {
           </div>
           <div className="flex flex-col gap-1 font-jet-r text-sm">
             <span className="text-xl font-jet-b">Наши соцсети</span>
-            <Link to="/">Github</Link>
-            <Link to="/training">VK</Link>
-            <Link to="/rating">Telegram</Link>
-            <Link to="/statistics">MAX</Link>
+            <a href="https://github.com/c4inusiii/touch-typing" target="_blank">
+              Github
+            </a>
+            <a href="/" target="_blank">
+              VK
+            </a>
+            <a href="/" target="_blank">
+              Telegram
+            </a>
+            <a href="/" target="_blank">
+              MAX
+            </a>
           </div>
         </div>
       </Container>
