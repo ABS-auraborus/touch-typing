@@ -21,13 +21,14 @@ def new_data(data_name: str, data: str, language: str, difficult: int):
     except sqlite3.IntegrityError as e:
         print(f"Add {data_name.lower()} err: {e}")
 
-def new_user(login: str, salt: str, auth_verifier: str):
+def new_user(login: str, salt: str, password: str):
+    hashed_password = crypto.hasher(password)
     try:
         with database_inrteraction.get_connection("USERS") as con:
             db_cur = con.cursor()
 
             db_cur.execute('''
-                INSERT INTO users (LOGIN, SALT, VERIFIRE)
+                INSERT INTO users (LOGIN, SALT, HASHED_PASSWORD)
                 VALUES (?, ?, ?)
             ''', (login, salt, auth_verifier))
 

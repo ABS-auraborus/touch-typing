@@ -68,19 +68,12 @@ def init_db_users():
         db_cur = con.cursor()
 
         db_cur.execute('''
-        CREATE TABLE IF NOT EXISTS USERS_INF (
+        CREATE TABLE IF NOT EXISTS USERS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             LOGIN TEXT UNIQUE NOT NULL,
             SALT TEXT NOT NULL,
-            VERIFIRE TEXT NOT NULL,
+            HASHED_PASSWORD TEXT NOT NULL,
             CREATION_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-        ''')
-
-        db_cur.execute('''
-        CREATE TABLE IF NOT EXISTS ACHIVMENTS (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            NAME TEXT UNIQUE NOT NULL
         )
         ''')
 

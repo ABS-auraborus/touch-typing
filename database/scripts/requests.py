@@ -42,3 +42,5 @@ def get_json(data_type: str, language: str, difficult: str):
             }
     except sqlite3.Error as e:
         return {"status": "error", "message": "Err request: {e}"}
+
+@router.post("/auth/login"):
