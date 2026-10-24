@@ -72,7 +72,15 @@ def init_db_users():
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             LOGIN TEXT UNIQUE NOT NULL,
             SALT TEXT NOT NULL,
-            VERIFIRE TEXT NOT NULL
+            VERIFIRE TEXT NOT NULL,
+            CREATION_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        ''')
+
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS ACHIVMENTS (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            NAME TEXT UNIQUE NOT NULL
         )
         ''')
 
@@ -82,3 +90,4 @@ def init_databases():
     init_db_sentences()
     init_db_words()
     init_db_chars()
+    init_db_users()
