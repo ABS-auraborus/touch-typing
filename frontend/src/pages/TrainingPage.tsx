@@ -1,3 +1,4 @@
+import React from "react";
 import Container from "../components/Container";
 import SelectionLine from "../sections/Training/SelectionLine";
 import TextHolder from "../sections/Training/TextHolder";

@@ -1,0 +1,121 @@
+/* Подключаем базовые стили библиотеки */
+@import "simple-keyboard/build/css/index.css";
+
+/* Стили для зон пальцев (левая рука) */
+.finger-pinky-left {
+    background-color: #ffcccc !important;
+    color: #333 !important;
+}
+
+.finger-ring-left {
+    background-color: #ffe6cc !important;
+    color: #333 !important;
+}
+
+.finger-middle-left {
+    background-color: #ffffcc !important;
+    color: #333 !important;
+}
+
+.finger-index-left {
+    background-color: #e6ffcc !important;
+    color: #333 !important;
+}
+
+/* Стили для зон пальцев (правая рука) */
+.finger-index-right {
+    background-color: #e6f2ff !important;
+    color: #333 !important;
+}
+
+.finger-middle-right {
+    background-color: #e6ffff !important;
+    color: #333 !important;
+}
+
+.finger-ring-right {
+    background-color: #f2e6ff !important;
+    color: #333 !important;
+}
+
+.finger-pinky-right {
+    background-color: #ffe6f9 !important;
+    color: #333 !important;
+}
+
+/* Большие пальцы (Пробел) */
+.finger-thumbs {
+    background-color: #f0f0f0 !important;
+    color: #333 !important;
+}
+
+/* Динамические стили для нажатий */
+.key-success {
+    background-color: #2ecc71 !important;
+    color: white !important;
+    transform: scale(0.95);
+    transition: transform 0.05s ease;
+}
+
+.key-error {
+    background-color: #e74c3c !important;
+    color: white !important;
+    animation: key-shake 0.1s ease-in-out 2;
+}
+
+@keyframes key-shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(2px);
+    }
+}
+
+/* Мягкая подсказка: клавиша, которую нужно нажать прямо сейчас */
+.simple-keyboard .hg-button.key-current-target {
+    background-color: #3498db !important;
+    /* Мягкий синий */
+    color: white !important;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+    font-weight: bold;
+}
+
+/* Эффект успешного нажатия (меняем оттенок целевой клавиши) */
+.simple-keyboard .hg-button.key-success {
+    background-color: #2ecc71 !important;
+    /* Приятный зелёный */
+    color: white !important;
+    transform: scale(0.95);
+    transition: transform 0.05s ease;
+}
+
+/* Яркий акцентный красный для ошибки */
+.simple-keyboard .hg-button.key-error {
+    background-color: #ff003c !important;
+    /* Контрастный ярко-красный */
+    color: white !important;
+    animation: key-shake 0.1s ease-in-out 2;
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+    z-index: 10;
+    /* Чтобы тень была поверх соседних клавиш */
+}
+
+@keyframes key-shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(3px);
+    }
+}
