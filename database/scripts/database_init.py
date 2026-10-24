@@ -2,8 +2,6 @@ import os
 import sqlite3
 import database_interaction
 
-
-
 def init_db_sentences():
     with database_interaction.get_connection("SENTENCES") as con:
         db_cur = con.cursor()
@@ -60,6 +58,21 @@ def init_db_chars():
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             CHARS TEXT UNIQUE NOT NULL,
             DIFFICULT TEXT NOT NULL DEFAULT 0
+        )
+        ''')
+
+        db_cur.close()
+
+def init_db_users():
+    with database_interaction.get_connection("USERS") as con:
+        db_cur = con.cursor()
+
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS USERS_INF (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            LOGIN TEXT UNIQUE NOT NULL,
+            SALT TEXT NOT NULL,
+            VERIFIRE TEXT NOT NULL
         )
         ''')
 
