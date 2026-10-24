@@ -26,4 +26,25 @@ def get_data_json(data_type: str, table_name: str, difficult: int):
             }
     except sqlite3.Error as e:
         return {"status": "error", "message": "Err request: {e}"}
+            
+def get_user(login: str):
+    try:
+        with database_inrteraction.get_connection("USERS") as con:
+            db_cur = con.cursor()
+
+            db_cur.execute('''
+                SELECT LOGIN, SALT, HASHED_PASSWORD
+                FROM USERS
+                WHERE LOGIN = ?
+            ''', (login,))
+
+            user_data = db_cur.fetchall()
+
+            return {
+                "login": user_data[0],
+                "salt": user_data[0],
+                "hashed_password": user_data[0]
+            }
+    except sqlite3.Error as e:
+        return {"status": "error", "message": {e}}
     

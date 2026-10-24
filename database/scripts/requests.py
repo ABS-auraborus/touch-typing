@@ -23,4 +23,4 @@ def get_json(data_type: str, language: str, difficult: str):
 
     return get_data_json(data_type, table_name, difficult)
 
-@router.post("/auth/login"):
+@router.post("/auth/login")
