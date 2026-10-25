@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 import Container from "../components/Container";
-import Graph, { DAYS } from "../components/Graph";
+import Graph, {DAYS} from "../components/Graph";
 
 const StatisticsPage = () => {
   const [lang, setLang] = useState<"ru" | "en">("ru");
@@ -11,16 +11,16 @@ const StatisticsPage = () => {
     accuracy: [93.7, 93.5, 93.3, 93.6, 93.5, 92.9, 93.2],
     cpm: [159, 164, 149, 165, 170, 161, 161],
     letters: [
-      { letter: "Ь", errors: 20 },
-      { letter: "А", errors: 19 },
-      { letter: "Й", errors: 18 },
-      { letter: "Ю", errors: 18 },
-      { letter: "Ф", errors: 18 },
-      { letter: "Ж", errors: 17 },
-      { letter: "З", errors: 16 },
-      { letter: "Б", errors: 15 },
-      { letter: "Э", errors: 14 },
-      { letter: "Ш", errors: 11 },
+      {letter: "Ь", errors: 20},
+      {letter: "А", errors: 19},
+      {letter: "Й", errors: 18},
+      {letter: "Ю", errors: 18},
+      {letter: "Ф", errors: 18},
+      {letter: "Ж", errors: 17},
+      {letter: "З", errors: 16},
+      {letter: "Б", errors: 15},
+      {letter: "Э", errors: 14},
+      {letter: "Ш", errors: 11},
     ],
   });
   const [dataEn, setDataEn] = useState({
@@ -28,27 +28,28 @@ const StatisticsPage = () => {
     accuracy: [91.2, 92.1, 90.8, 92.5, 93.1, 91.7, 92.9],
     cpm: [145, 152, 138, 155, 160, 149, 151],
     letters: [
-      { letter: "T", errors: 22 },
-      { letter: "A", errors: 20 },
-      { letter: "E", errors: 19 },
-      { letter: "B", errors: 17 },
-      { letter: "C", errors: 16 },
-      { letter: "H", errors: 15 },
-      { letter: "M", errors: 13 },
-      { letter: "P", errors: 12 },
-      { letter: "O", errors: 10 },
-      { letter: "S", errors: 8 },
+      {letter: "T", errors: 22},
+      {letter: "A", errors: 20},
+      {letter: "E", errors: 19},
+      {letter: "B", errors: 17},
+      {letter: "C", errors: 16},
+      {letter: "H", errors: 15},
+      {letter: "M", errors: 13},
+      {letter: "P", errors: 12},
+      {letter: "O", errors: 10},
+      {letter: "S", errors: 8},
     ],
   });
 
   // активный набор — переключается кнопками Ru/En
   const data = lang === "ru" ? dataRu : dataEn;
   const setData = lang === "ru" ? setDataRu : setDataEn;
-  const { lessons, accuracy, cpm, letters } = data;
-  const setLessons = (v: number[]) => setData((d) => ({ ...d, lessons: v }));
-  const setAccuracy = (v: number[]) => setData((d) => ({ ...d, accuracy: v }));
-  const setCpm = (v: number[]) => setData((d) => ({ ...d, cpm: v }));
-  const setLetters = (v: Array<{ letter: string; errors: number }>) => setData((d) => ({ ...d, letters: v }));
+  const {lessons, accuracy, cpm, letters} = data;
+  const setLessons = (v: number[]) => setData((d) => ({...d, lessons: v}));
+  const setAccuracy = (v: number[]) => setData((d) => ({...d, accuracy: v}));
+  const setCpm = (v: number[]) => setData((d) => ({...d, cpm: v}));
+  const setLetters = (v: Array<{letter: string; errors: number}>) =>
+    setData((d) => ({...d, letters: v}));
   const [showEditor, setShowEditor] = useState(false);
   const [draft, setDraft] = useState("");
 
@@ -64,13 +65,23 @@ const StatisticsPage = () => {
     return nums;
   };
 
-  const parseLetters = (text: string): Array<{ letter: string; errors: number }> => {
+  const parseLetters = (
+    text: string,
+  ): Array<{letter: string; errors: number}> => {
     // формат строк: "А 39" или "А-39" или "А:39", каждая с новой строки/запятой
-    const rows = text.split(/[\n;]+/).flatMap((r) => r.split(",")).map((s) => s.trim()).filter(Boolean);
-    const out: Array<{ letter: string; errors: number }> = [];
+    const rows = text
+      .split(/[\n;]+/)
+      .flatMap((r) => r.split(","))
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const out: Array<{letter: string; errors: number}> = [];
     for (const row of rows) {
       const m = row.match(/([A-Za-zА-Яа-яЁёЬь]+)\s*[-: ]\s*(\d+(?:[.,]\d+)?)/);
-      if (m) out.push({ letter: m[1].toUpperCase(), errors: Number(m[2].replace(",", ".")) });
+      if (m)
+        out.push({
+          letter: m[1].toUpperCase(),
+          errors: Number(m[2].replace(",", ".")),
+        });
     }
     return out;
   };
@@ -81,7 +92,9 @@ const StatisticsPage = () => {
   };
 
   // какой набор сейчас редактируем: lessons | accuracy | cpm | letters
-  const [editing, setEditing] = useState<"lessons" | "accuracy" | "cpm" | "letters">("lessons");
+  const [editing, setEditing] = useState<
+    "lessons" | "accuracy" | "cpm" | "letters"
+  >("lessons");
 
   const applyDraft = () => {
     if (editing === "letters") {
@@ -100,8 +113,12 @@ const StatisticsPage = () => {
   };
 
   const totalLessons = Math.round(lessons.reduce((a, b) => a + b, 0));
-  const avgAccuracy = accuracy.length ? accuracy.reduce((a, b) => a + b, 0) / accuracy.length : 0;
-  const avgCpm = cpm.length ? Math.round(cpm.reduce((a, b) => a + b, 0) / cpm.length) : 0;
+  const avgAccuracy = accuracy.length
+    ? accuracy.reduce((a, b) => a + b, 0) / accuracy.length
+    : 0;
+  const avgCpm = cpm.length
+    ? Math.round(cpm.reduce((a, b) => a + b, 0) / cpm.length)
+    : 0;
 
   const letterLabels = letters.map((l) => l.letter);
   const letterValues = letters.map((l) => l.errors);
@@ -114,7 +131,13 @@ const StatisticsPage = () => {
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общие кол-во уроков:{totalLessons}</p>
               <div className="w-115 h-90 bg-white p-2">
-                <Graph type="bar" data={lessons} labels={DAYS} yLabel="Задания" xLabel="Дни" />
+                <Graph
+                  type="bar"
+                  data={lessons}
+                  labels={DAYS}
+                  yLabel="Задания"
+                  xLabel="Дни"
+                />
               </div>
               <button
                 className="text-sm underline text-gray-2 hover:text-white cursor-pointer"
@@ -129,7 +152,13 @@ const StatisticsPage = () => {
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общ точность:{avgAccuracy.toFixed(1)}</p>
               <div className="w-115 h-90 bg-white p-2">
-                <Graph type="line" data={accuracy} labels={DAYS} yLabel="Точность(%)" xLabel="Дни" />
+                <Graph
+                  type="line"
+                  data={accuracy}
+                  labels={DAYS}
+                  yLabel="Точность(%)"
+                  xLabel="Дни"
+                />
               </div>
               <button
                 className="text-sm underline text-gray-2 hover:text-white cursor-pointer"
@@ -144,7 +173,13 @@ const StatisticsPage = () => {
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общий Cpm:{avgCpm}</p>
               <div className="w-115 h-90 bg-white p-2">
-                <Graph type="line" data={cpm} labels={DAYS} yLabel="Средний cpm" xLabel="Дни" />
+                <Graph
+                  type="line"
+                  data={cpm}
+                  labels={DAYS}
+                  yLabel="Средний cpm"
+                  xLabel="Дни"
+                />
               </div>
               <button
                 className="text-sm underline text-gray-2 hover:text-white cursor-pointer"
@@ -159,13 +194,21 @@ const StatisticsPage = () => {
             <div className="text-white flex flex-col items-center gap-10">
               <p>Ошибки в буквах</p>
               <div className="w-115 h-90 bg-white p-2">
-                <Graph type="bar" data={letterValues} labels={letterLabels} yLabel="ошибок в буквах" xLabel="letter" />
+                <Graph
+                  type="bar"
+                  data={letterValues}
+                  labels={letterLabels}
+                  yLabel="ошибок в буквах"
+                  xLabel="letter"
+                />
               </div>
               <button
                 className="text-sm underline text-gray-2 hover:text-white cursor-pointer"
                 onClick={() => {
                   setEditing("letters");
-                  openEditor(letters.map((l) => `${l.letter} ${l.errors}`).join("\n"));
+                  openEditor(
+                    letters.map((l) => `${l.letter} ${l.errors}`).join("\n"),
+                  );
                 }}
               >
                 Ввести ошибки по буквам
@@ -212,7 +255,11 @@ const StatisticsPage = () => {
                 onChange={(e) => setDraft(e.target.value)}
                 rows={editing === "letters" ? 10 : 3}
                 className="w-full rounded-lg p-3 text-black bg-white text-base outline-none"
-                placeholder={editing === "letters" ? "А 39\nЁ 25\nВ 24" : "108 109 102 87 120 121 108"}
+                placeholder={
+                  editing === "letters"
+                    ? "А 39\nЁ 25\nВ 24"
+                    : "108 109 102 87 120 121 108"
+                }
               />
               <div className="flex justify-end gap-3 mt-4">
                 <button
