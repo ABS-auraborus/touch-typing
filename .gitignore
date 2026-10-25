@@ -55,7 +55,7 @@ htmlcov/
 
 Файлы БД SQLite
 
-*.db
+# *.db
 .sqlite3
 .sqlite
 backend/data/.db

@@ -12,6 +12,7 @@ const Header = () => {
           <Link to="/training">Тренажёр</Link>
           <Link to="/rating">Рейтинг</Link>
           <Link to="/statistics">Статистика</Link>
+          <Link to="/achievements">Достижения</Link>
           <Link to="/auth">Войти/Создать аккаунт</Link>
         </nav>
       </Container>
