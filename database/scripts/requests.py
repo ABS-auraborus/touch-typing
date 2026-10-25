@@ -11,7 +11,7 @@ router = APIRouter()
 
 database_init.init_databases()
 
-@router.get("/data?type={data_type}&lang={language}&diff={difficult}")
+@router.get("/data")
 def get_json(data_type: str, language: str, difficult: int):
     data_type = data_type.strip().upper()
     language = language.strip().upper()
