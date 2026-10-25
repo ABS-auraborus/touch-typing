@@ -25,7 +25,7 @@ def get_data_json(data_type: str, table_name: str, difficult: int):
                 "data": data_list
             }
     except sqlite3.Error as e:
-        return {"status": "error", "message": "Err request: {e}"}
+        return {"status": "error", "message": "Err request": e}
             
 def get_user(login: str):
     try:
