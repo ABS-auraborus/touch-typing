@@ -15,7 +15,6 @@ database_init.init_databases()
 def get_json(data_type: str, language: str, difficult: str):
     data_type = data_type.strip().upper()
     language = language.strip().upper()
-    difficult = difficult.strip().upper()
 
     if language in ["RUS", "ENG"] and data_type in ["SENTENCES", "WORDS", "CHARS"] and difficult in [0, 1, 2]:
         table_name = f"{language}_{data_type}"
@@ -23,7 +22,7 @@ def get_json(data_type: str, language: str, difficult: str):
     else:
         return {"status": "error", "message": "inv data"}
 
-    return get_data_json(data_type, table_name, difficult)
+    return database_inquiry.get_data_json(data_type, table_name, difficult)
 
 @router.post("/auth/login")
 def logging_in(login: str, password: str):
