@@ -42,12 +42,17 @@ def random_chars_generator(alphabet_list):
 
 def random_words_generator(language: str, word_reg: int):
 	language = language.strip().upper()
-	
+
+	match language:
+		case 'ENG':
+			l_word = Locale.EN
+		case 'RUS':
+			l_word = Locale.RU
 
 	word_prov = Text(l_word)
 	word = word_prov.word()
 	word_difficult = dif_checker(len(word))
-	word, word_register = register_editor(word, word_reg)
+	word = register_editor(word, word_reg)
 
 	return word, word_difficult
 	
@@ -55,9 +60,9 @@ def random_sentences_generator(language: str):
 	language = language.strip().upper()
 	
 	match language:
-		case 'EN':
+		case 'ENG':
 			l_sent = Locale.EN
-		case 'RU':
+		case 'RUS':
 			l_sent = Locale.RU
 
 	sent_prov = Text(l_sent)
