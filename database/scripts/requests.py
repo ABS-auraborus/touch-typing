@@ -1,51 +1,42 @@
+from fastapi import APIRouter
 import sqlite3
 import os
 import json
 import database_interaction
 import database_init
-from fastapi import APIRouter
+import database_inquiry
+import validator
 
 router = APIRouter()
 
+database_init.init_databases()
 
-@router.get("/data")
+@router.get("/data?type={data_type}&lang={language}&diff={difficult}")
 def get_json(data_type: str, language: str, difficult: int):
-    database_init.init_databases()
-
     data_type = data_type.strip().upper()
     language = language.strip().upper()
 
-    if (
-        language in ["RUS", "ENG"]
-        and data_type in ["SENTENCES", "WORDS", "CHARS"]
-        and difficult in [0, 1, 2]
-    ):
+    if language in ["RUS", "ENG"] and data_type in ["SENTENCES", "WORDS", "CHARS"] and difficult in [0, 1, 2]:
         table_name = f"{language}_{data_type}"
         naming_db = f"{data_type}.db"
     else:
         return {"status": "error", "message": "inv data"}
 
-    try:
-        with database_interaction.get_connection(data_type) as con:
-            db_cur = con.cursor()
+    return database_inquiry.get_data_json(data_type, table_name, difficult)
 
-            db_cur.execute(
-                """
-                SELECT {type}, DIFFICULT
-                FROM {table_name}
-                WHERE DIFFICULT = ?
-            """,
-                (difficult,),
-            )
-            raw_data = db_cur.fetchall()
+@router.post("/auth/login")
+def logging_in(login: str, password: str):
+    data_by_login = database_inquiry.get_user(login)
 
-            data_list = [row[0] for row in raw_data]
+    if not data_by_login:
+        raise HTTPException(status_code=400, detail="Unexpected login or password")
 
-            return {
-                "language": language,
-                "difficult": difficult,
-                "count": len(data_list),
-                "data": data_list,
-            }
-    except sqlite3.Error as e:
-        return {"status": "error", "message": "Err request: {e}"}
+    login_db = data_by_login["login"]
+    salt_db = data_by_login["salt"]
+    hashed_password = data_by_login["hashed_password"]
+    valid_checker = validator.verify_password(password, hashed_password, salt_db)
+        
+    if not valid_checker:
+        raise HTTPException(status_code=400, detail="Unexpected login or password")
+
+    return {"status": "success", "message": "Logged in"}
