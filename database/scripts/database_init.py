@@ -1,5 +1,12 @@
-import os
 import sqlite3
+import os
+import sys
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+    
 import database_interaction
 
 def init_db_sentences():
@@ -10,14 +17,14 @@ def init_db_sentences():
         CREATE TABLE IF NOT EXISTS ENG_SENTENCES (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             SENTENCES TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_SENTENCES (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             SENTENCES TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
 
@@ -31,14 +38,14 @@ def init_db_words():
         CREATE TABLE IF NOT EXISTS ENG_WORDS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             WORDS TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_WORDS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             WORDS TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
 
@@ -50,14 +57,14 @@ def init_db_chars():
         CREATE TABLE IF NOT EXISTS ENG_CHARS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             CHARS TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
         db_cur.execute('''
         CREATE TABLE IF NOT EXISTS RUS_CHARS (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             CHARS TEXT UNIQUE NOT NULL,
-            DIFFICULT TEXT NOT NULL DEFAULT 0
+            DIFFICULT INTEGER NOT NULL DEFAULT 0
         )
         ''')
 

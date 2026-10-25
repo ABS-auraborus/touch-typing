@@ -9,10 +9,10 @@ def new_data(data_name: str, data: str, language: str, difficult: int):
     language = language.strip().upper()
     
     try:
-        with database_inrteraction.get_connection(data_name) as con:
+        with database_interaction.get_connection(data_name) as con:
             db_cur = con.cursor()
 
-            db_cur.execute('''
+            db_cur.execute(f'''
                 INSERT INTO {language}_{data_name} ({data_name}, DIFFICULT)
                 VALUES (?, ?)
             ''', (data, difficult))
@@ -24,7 +24,7 @@ def new_data(data_name: str, data: str, language: str, difficult: int):
 def new_user(login: str, salt: str, password: str):
     hashed_password = crypto.hasher(password)
     try:
-        with database_inrteraction.get_connection("USERS") as con:
+        with database_interaction.get_connection("USERS") as con:
             db_cur = con.cursor()
 
             db_cur.execute('''
