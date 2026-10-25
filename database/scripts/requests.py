@@ -1,7 +1,16 @@
 from fastapi import APIRouter
+from .import database_interaction
+from .import database_inquiry
 import sqlite3
 import os
 import json
+import sys
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+
 import database_interaction
 import database_init
 import database_inquiry
@@ -22,7 +31,7 @@ def get_json(data_type: str, language: str, difficult: int = 0):
     else:
         return {"status": "error", "message": "inv data"}
 
-    return database_inquiry.get_data_json(data_type, table_name, difficult)
+    return database_inquiry.get_data_json(data_type, table_name, language, difficult)
 
 @router.post("/auth/login")
 def logging_in(login: str, password: str):

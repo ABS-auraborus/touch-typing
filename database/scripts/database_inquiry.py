@@ -1,10 +1,18 @@
 import sqlite3
+import os
+import sys
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+
 import database_init
-import database_inrteraction
+import database_interaction
 
 database_init.init_databases()
 
-def get_data_json(data_type: str, table_name: str, difficult: int):
+def get_data_json(data_type: str, table_name: str, language: str, difficult: int):
     try:
         with database_interaction.get_connection(data_type) as con:
             db_cur = con.cursor()
@@ -25,7 +33,7 @@ def get_data_json(data_type: str, table_name: str, difficult: int):
                 "data": data_list
             }
     except sqlite3.Error as e:
-        return {"status": "error", "message": "Err request": e}
+        return {"status": "error", "message": f"Err request: {e}"}
             
 def get_user(login: str):
     try:
