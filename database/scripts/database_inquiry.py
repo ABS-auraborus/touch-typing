@@ -9,7 +9,7 @@ def get_data_json(data_type: str, table_name: str, difficult: int):
         with database_interaction.get_connection(data_type) as con:
             db_cur = con.cursor()
 
-            db_cur.execute('''
+            db_cur.execute(f'''
                 SELECT {data_type}, DIFFICULT
                 FROM {table_name}
                 WHERE DIFFICULT = ?
