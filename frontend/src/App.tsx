@@ -4,6 +4,7 @@ import TrainingPage from "./pages/TrainingPage";
 import Header from "./sections/Header";
 import Footer from "./sections/Footer";
 import StatisticsPage from "./pages/StatisticsPage";
+import AchievementsPage from "./pages/AchievementsPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/training" element={<TrainingPage />} />
         <Route path="/statistics" element={<StatisticsPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
       </Routes>
       <Footer />
     </div>
