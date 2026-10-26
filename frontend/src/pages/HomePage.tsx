@@ -4,7 +4,7 @@ import UsefulTo from "../sections/Home/UsefulTo";
 
 export default function HomePage() {
   return (
-    <main className="pt-21 bg-main-bg text-white">
+    <main className="pt-21 bg-dark-blue-main text-white">
       <Container>
         <AppPurpose />
         <UsefulTo />

@@ -4,7 +4,7 @@ import Logo from "../components/Logo";
 
 const Footer = () => {
   return (
-    <footer className="py-6 bg-header-footer text-white">
+    <footer className="py-6 bg-blue-accent text-white">
       <Container>
         <div className="flex justify-between">
           <div className="flex gap-4 items-center">
