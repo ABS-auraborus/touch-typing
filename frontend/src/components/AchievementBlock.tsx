@@ -10,7 +10,7 @@ const AchievementBlock = ({children, imageURL, progress}: AchievementProps) => {
   const achievementProgress = progress;
   return (
     <li
-      className={`pr-7 h-25 flex justify-between items-center shadow-block ${achievementProgress === 1 ? "bg-black-main" : "bg-gray-4"}`}
+      className={`pr-7 h-25 flex justify-between items-center shadow-block ${achievementProgress === 1 ? "bg-black-accent" : "bg-gray-accent"}`}
     >
       <div className="flex gap-3 items-center">
         <div>

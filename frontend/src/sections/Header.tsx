@@ -4,7 +4,7 @@ import Logo from "../components/Logo";
 
 const Header = () => {
   return (
-    <header className="bg-header-footer text-white">
+    <header className="bg-blue-accent text-white">
       <Logo className="absolute top-0 left-0" />
       <Container>
         <nav className="flex gap-4 py-6 justify-between font-jet-r">

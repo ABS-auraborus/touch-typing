@@ -18,7 +18,7 @@ const Button = ({
   return (
     <Link
       to={to}
-      className={`text-xl text-white flex justify-center items-center bg-deep-blue ${className}`}
+      className={`text-xl text-white flex justify-center items-center bg-blue-accent ${className}`}
       style={{width, height}}
     >
       {children}

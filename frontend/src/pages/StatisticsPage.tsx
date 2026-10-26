@@ -8,19 +8,19 @@ const StatisticsPage = () => {
           <div className="grid grid-cols-2 grid-rows-2 gap-x-20 gap-y-30 max-w-250 pt-13">
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общие кол-во уроков:500</p>
-              <div className="w-115 h-90 bg-black-main"></div>
+              <div className="w-115 h-90 bg-blue-accent"></div>
             </div>
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общ точность:98</p>
-              <div className="w-115 h-90 bg-black-main"></div>
+              <div className="w-115 h-90 bg-blue-accent"></div>
             </div>
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общий Cpm:150</p>
-              <div className="w-115 h-90 bg-black-main"></div>
+              <div className="w-115 h-90 bg-blue-accent"></div>
             </div>
             <div className="text-white flex flex-col items-center gap-10">
               <p>Ошибки в буквах</p>
-              <div className="w-115 h-90 bg-black-main"></div>
+              <div className="w-115 h-90 bg-blue-accent"></div>
             </div>
           </div>
           <div className="text-white">
