@@ -31,7 +31,7 @@ def get_data_json(data_type: str, table_name: str, language: str, difficult: int
             
 def get_user(login: str):
     try:
-        with database_inrteraction.get_connection("USERS") as con:
+        with database_interaction.get_connection("USERS") as con:
             db_cur = con.cursor()
 
             db_cur.execute('''
