@@ -15,7 +15,7 @@ router = APIRouter()
 
 database_init.init_databases()
 
-class UserRegisterSchema(BaseModel):
+class UserDataSchema(BaseModel):
     login: str
     password: str
 
@@ -33,7 +33,7 @@ def get_json(data_type: str, language: str, difficult: int = 0):
     return database_inquiry.get_data_json(data_type, table_name, language, difficult)
 
 @router.post("/auth/registration")
-def registration(user_data: UserRegisterSchema):
+def registration(user_data: UserDataSchema):
     try:
         salt = crypto.make_salt()
         database_add.new_user(user_data.login, salt, user_data.password)
@@ -42,23 +42,31 @@ def registration(user_data: UserRegisterSchema):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Не удалось зарегистрировать пользователя. Возможно, логин занят. Ошибка: {str(e)}"
+            detail=f"Cant reg. Error: {str(e)}"
         )
 
 
 @router.post("/auth/login")
-def logging_in(login: str, password: str):
-    data_by_login = database_inquiry.get_user(login)
+def logging_in(user_data: UserDataSchema):
+    try:
+        data_by_login = database_inquiry.get_user(user_data.login)
 
-    if not data_by_login:
-        raise HTTPException(status_code=400, detail="Unexpected login or password")
+        if not data_by_login:
+            raise HTTPException(status_code=400, detail="Unexpected login or password")
 
-    login_db = data_by_login["login"]
-    salt_db = data_by_login["salt"]
-    hashed_password = data_by_login["hashed_password"]
-    valid_checker = validator.verify_password(password, hashed_password, salt_db)
+        login_db = data_by_login["login"]
+        salt_db = data_by_login["salt"]
+        hashed_password = data_by_login["hashed_password"]
+        valid_checker = validator.verify_password(user_data.password, hashed_password, salt_db)
         
-    if not valid_checker:
-        raise HTTPException(status_code=400, detail="Unexpected login or password")
+        if not valid_checker:
+            raise HTTPException(status_code=400, detail="Unexpected login or password")
 
-    return {"status": "success", "message": "Logged in"}
+        return {"status": "success", "message": "Logged in"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cant log. Error: {str(e)}"
+        )
+    except HTTPException as e:
+        raise e
