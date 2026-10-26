@@ -9,6 +9,10 @@ const StatisticsPage = () => {
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общие кол-во уроков:500</p>
               <div className="w-115 h-90 bg-black-main"></div>
+              <iframe
+              src="http://localhost:8000/graphs/lessons-per-week"
+              className="w-full h-full border-0"
+              />
             </div>
             <div className="text-white flex flex-col items-center gap-10">
               <p>Общ точность:98</p>
