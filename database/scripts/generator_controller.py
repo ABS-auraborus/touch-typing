@@ -1,9 +1,9 @@
-import database_init
-import database_interaction
-import database_add
-import generator
-import string
-import random
+from . import database_init
+from . import database_interaction
+from . import database_add
+from . import generator
+from . import string
+from . import random
 
 database_init.init_databases()
 

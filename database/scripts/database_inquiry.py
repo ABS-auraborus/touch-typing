@@ -1,14 +1,8 @@
 import sqlite3
 import os
-import sys
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-if CURRENT_DIR not in sys.path:
-    sys.path.insert(0, CURRENT_DIR)
-
-import database_init
-import database_interaction
+from . import database_init
+from . import database_interaction
 
 database_init.init_databases()
 

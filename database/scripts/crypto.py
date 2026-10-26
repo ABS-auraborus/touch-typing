@@ -7,8 +7,8 @@ import hashlib
 def make_salt():
     return base64.b64encode(os.urandom(16)).decode('utf-8')
 
-def bytes_of_salt(salt_str: str):
-    return base64.b64decode(salt_str.encode('utf-8'))
+def bytes_of_salt(salt: str):
+    return base64.b64decode(salt.encode('utf-8'))
 
 def hasher(password: str, salt: str):
     password_bytes = password.encode('utf-8')
@@ -17,7 +17,7 @@ def hasher(password: str, salt: str):
     kdf = PBKDF2HMAC(
         algorithm = hashes.SHA256(),
         length = 32,
-        salt = salt,
+        salt = salted_bytes,
         iterations = 100000,
     )
 

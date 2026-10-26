@@ -35,7 +35,7 @@ def get_json(data_type: str, language: str, difficult: int = 0):
 @router.post("/auth/registration")
 def registration(user_data: UserRegisterSchema):
     try:
-        salt = make_salt()
+        salt = crypto.make_salt()
         database_add.new_user(user_data.login, salt, user_data.password)
 
         return {"status": "success", "message": "registered"}
