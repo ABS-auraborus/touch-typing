@@ -6,6 +6,7 @@ import Footer from "./sections/Footer";
 import StatisticsPage from "./pages/StatisticsPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/statistics" element={<StatisticsPage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );

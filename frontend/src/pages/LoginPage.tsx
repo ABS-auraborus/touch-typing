@@ -1,0 +1,40 @@
+const LoginPage = () => {
+  return (
+    <main className="flex justify-center items-center">
+      <div className="flex flex-col items-center text-white text-xl font-ubuntu-r max-w-125 w-full px-15 py-10 bg-blue-accent rounded-3xl">
+        <h4 className="text-4xl mb-11">Войти</h4>
+        <form
+          className="w-full flex flex-col items-center gap-8 bg-dark-blue-2 [&_input]:bg-dark-blue-main [&>input]:p-3 [&>input]:rounded-3xl [&>input]:w-full"
+          action="#"
+        >
+          <input placeholder="Почта / Email" type="email" name="email" />
+          <input
+            placeholder="Пароль / Password"
+            type="password"
+            name="password"
+          />
+          <div className="w-full -mt-5">
+            <button className="cursor-pointer select-none">
+              Забыли пароль?
+            </button>
+          </div>
+          <div className="flex gap-4 justify-center items-center">
+            <label className="cursor-pointer select-none" htmlFor="remember-me">
+              Запомнить меня
+            </label>
+            <input
+              className="cursor-pointer appearance-none size-7 rounded-full bg-no-repeat bg-center checked:bg-[url(/public/icons/star.svg)]"
+              type="checkbox"
+              id="remember-me"
+            />
+          </div>
+          <button className="bg-dark-blue-main w-62.5 py-3 rounded-3xl mt-10">
+            Продолжить / Next
+          </button>
+        </form>
+      </div>
+    </main>
+  );
+};
+
+export default LoginPage;
