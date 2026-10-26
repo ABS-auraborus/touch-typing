@@ -1,24 +1,23 @@
-from fastapi import APIRouter
-from .import database_interaction
-from .import database_inquiry
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel
 import sqlite3
 import os
 import json
-import sys
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-if CURRENT_DIR not in sys.path:
-    sys.path.insert(0, CURRENT_DIR)
-
-import database_interaction
-import database_init
-import database_inquiry
-import validator
+from . import database_interaction
+from . import database_init
+from . import database_inquiry
+from . import validator
+from . import database_add
+from . import crypto
 
 router = APIRouter()
 
 database_init.init_databases()
+
+class UserRegisterSchema(BaseModel):
+    login: str
+    password: str
 
 @router.get("/data")
 def get_json(data_type: str, language: str, difficult: int = 0):
@@ -32,6 +31,20 @@ def get_json(data_type: str, language: str, difficult: int = 0):
         return {"status": "error", "message": "inv data"}
 
     return database_inquiry.get_data_json(data_type, table_name, language, difficult)
+
+@router.post("/auth/registration")
+def registration(user_data: UserRegisterSchema):
+    try:
+        salt = make_salt()
+        database_add.new_user(user_data.login, salt, user_data.password)
+
+        return {"status": "success", "message": "registered"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Не удалось зарегистрировать пользователя. Возможно, логин занят. Ошибка: {str(e)}"
+        )
+
 
 @router.post("/auth/login")
 def logging_in(login: str, password: str):
