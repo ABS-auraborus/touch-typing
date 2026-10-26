@@ -1,6 +1,8 @@
 import sqlite3
-import database_init
-import database_interaction
+
+from . import database_interaction
+from . import database_init
+from . import crypto
 
 database_init.init_databases()
 
@@ -22,7 +24,7 @@ def new_data(data_name: str, data: str, language: str, difficult: int):
         print(f"Add {data_name.lower()} err: {e}")
 
 def new_user(login: str, salt: str, password: str):
-    hashed_password = crypto.hasher(password)
+    hashed_password = crypto.hasher(password, salt)
     try:
         with database_interaction.get_connection("USERS") as con:
             db_cur = con.cursor()
@@ -30,7 +32,7 @@ def new_user(login: str, salt: str, password: str):
             db_cur.execute('''
                 INSERT INTO users (LOGIN, SALT, HASHED_PASSWORD)
                 VALUES (?, ?, ?)
-            ''', (login, salt, auth_verifier))
+            ''', (login, salt, hashed_password))
 
             db_cur.close()
     except sqlite3.IntegrityError as e:

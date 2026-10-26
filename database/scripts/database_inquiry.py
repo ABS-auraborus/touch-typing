@@ -1,14 +1,8 @@
 import sqlite3
 import os
-import sys
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-if CURRENT_DIR not in sys.path:
-    sys.path.insert(0, CURRENT_DIR)
-
-import database_init
-import database_interaction
+from . import database_init
+from . import database_interaction
 
 database_init.init_databases()
 
@@ -37,7 +31,7 @@ def get_data_json(data_type: str, table_name: str, language: str, difficult: int
             
 def get_user(login: str):
     try:
-        with database_inrteraction.get_connection("USERS") as con:
+        with database_interaction.get_connection("USERS") as con:
             db_cur = con.cursor()
 
             db_cur.execute('''

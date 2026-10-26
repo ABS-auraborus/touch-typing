@@ -1,24 +1,23 @@
-from fastapi import APIRouter
-from .import database_interaction
-from .import database_inquiry
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel
 import sqlite3
 import os
 import json
-import sys
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-if CURRENT_DIR not in sys.path:
-    sys.path.insert(0, CURRENT_DIR)
-
-import database_interaction
-import database_init
-import database_inquiry
-import validator
+from . import database_interaction
+from . import database_init
+from . import database_inquiry
+from . import validator
+from . import database_add
+from . import crypto
 
 router = APIRouter()
 
 database_init.init_databases()
+
+class UserDataSchema(BaseModel):
+    login: str
+    password: str
 
 @router.get("/data")
 def get_json(data_type: str, language: str, difficult: int = 0):
@@ -33,19 +32,41 @@ def get_json(data_type: str, language: str, difficult: int = 0):
 
     return database_inquiry.get_data_json(data_type, table_name, language, difficult)
 
+@router.post("/auth/registration")
+def registration(user_data: UserDataSchema):
+    try:
+        salt = crypto.make_salt()
+        database_add.new_user(user_data.login, salt, user_data.password)
+
+        return {"status": "success", "message": "registered"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cant reg. Error: {str(e)}"
+        )
+
+
 @router.post("/auth/login")
-def logging_in(login: str, password: str):
-    data_by_login = database_inquiry.get_user(login)
+def logging_in(user_data: UserDataSchema):
+    try:
+        data_by_login = database_inquiry.get_user(user_data.login)
 
-    if not data_by_login:
-        raise HTTPException(status_code=400, detail="Unexpected login or password")
+        if not data_by_login:
+            raise HTTPException(status_code=400, detail="Unexpected login or password")
 
-    login_db = data_by_login["login"]
-    salt_db = data_by_login["salt"]
-    hashed_password = data_by_login["hashed_password"]
-    valid_checker = validator.verify_password(password, hashed_password, salt_db)
+        login_db = data_by_login["login"]
+        salt_db = data_by_login["salt"]
+        hashed_password = data_by_login["hashed_password"]
+        valid_checker = validator.verify_password(user_data.password, hashed_password, salt_db)
         
-    if not valid_checker:
-        raise HTTPException(status_code=400, detail="Unexpected login or password")
+        if not valid_checker:
+            raise HTTPException(status_code=400, detail="Unexpected login or password")
 
-    return {"status": "success", "message": "Logged in"}
+        return {"status": "success", "message": "Logged in"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cant log. Error: {str(e)}"
+        )
+    except HTTPException as e:
+        raise e
