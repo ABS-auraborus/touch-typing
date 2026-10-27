@@ -78,6 +78,30 @@ def init_db_users():
         )
         ''')
 
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS ACHIEVEMENTS (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            NAME TEXT UNIQUE NOT NULL,
+            DESCRIPTION TEXT NOT NULL,
+            PATH TEXT NOT NULL,
+            CONDITION_TYPE TEXT NOT NULL,
+            CONDITION_VALUE INTEGER NOT NULL
+        )
+        ''')
+
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS USER_ACHIEVEMENTS (
+            USER_ID INTEGER NOT NULL,
+            ACHIEVEMENT_ID INTEGER NOT NULL,
+            CURRENT_VALUE INTEGER DEFAULT 0,
+            IS_UNLOCKED INTEGER DEFAULT 0,
+            EARNED_TIME TIMESTAMP,
+            PRIMARY KEY (USER_ID, ACHIEVEMENT_ID), 
+            FOREIGN KEY (USER_ID) REFERENCES USERS(ID) ON DELETE CASCADE,
+            FOREIGN KEY (ACHIEVEMENT_ID) REFERENCES ACHIEVEMENTS(ID) ON DELETE CASCADE
+        )
+        ''')
+        
         db_cur.close()
 
 def init_databases():
