@@ -9,7 +9,7 @@ from backend.app.crud import database_inquiry
 from backend.app.services import validator
 from backend.scripts import database_add
 from backend.app.core import crypto
-from backend.app.schemas.user_data_schema import UserDataSchema
+from backend.app.schemas.user_schema import UserDataSchema
 
 router = APIRouter()
 
