@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel
 import sqlite3
 import os
 import json
@@ -13,8 +12,6 @@ from backend.app.core import crypto
 from backend.app.schemas.user_data_schema import UserDataSchema
 
 router = APIRouter()
-
-user_data_schema.UserDataSchema
 
 database_init.init_databases()
 
