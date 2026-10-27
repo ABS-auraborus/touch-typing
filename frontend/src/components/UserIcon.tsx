@@ -5,8 +5,10 @@ interface UserIconProps {
 const UserIcon = ({avatarUrl}: UserIconProps) => {
   return (
     <div
-      className={`cursor-pointer size-15 rounded-full bg-white bg-no-repeat bg-cover bg-center bg-[url(${avatarUrl})]`}
-    ></div>
+      className={`flex justify-center items-center cursor-pointer size-15 rounded-full bg-white`}
+    >
+      <img src={avatarUrl} className="size-12" />
+    </div>
   );
 };
 
