@@ -3,10 +3,10 @@ import {Link} from "react-router-dom";
 const LoginPage = () => {
   return (
     <main className="flex justify-center items-center">
-      <div className="flex flex-col items-center text-white text-xl font-ubuntu-r max-w-125 w-full px-15 py-10 bg-blue-accent rounded-3xl">
+      <div className="flex flex-col items-center text-white text-xl font-ubuntu-r max-w-125 w-full h-150 px-15 py-10 bg-blue-accent rounded-3xl">
         <h4 className="text-4xl mb-11">Войти</h4>
         <form
-          className="w-full flex flex-col items-center gap-8 bg-dark-blue-2 [&_input]:bg-dark-blue-main [&>input]:p-3 [&>input]:rounded-3xl [&>input]:w-full"
+          className="w-full h-full flex flex-col items-center gap-6 bg-dark-blue-2 [&_input]:bg-dark-blue-main [&>input]:py-3 [&>input]:px-4 [&>input]:rounded-3xl [&>input]:w-full"
           action="#"
         >
           <input placeholder="Почта / Email" type="email" name="email" />
@@ -15,7 +15,7 @@ const LoginPage = () => {
             type="password"
             name="password"
           />
-          <div className="flex justify-between w-full -mt-5 text-lg select-none">
+          <div className="flex justify-between w-full -mt-3 text-lg select-none">
             <button className="cursor-pointer">Забыли пароль?</button>
             <Link to="/registration" className="cursor-pointer">
               Еще нет аккаунта?
@@ -31,7 +31,7 @@ const LoginPage = () => {
               id="remember-me"
             />
           </div>
-          <button className="bg-dark-blue-main w-62.5 py-3 rounded-3xl mt-10">
+          <button className="bg-dark-blue-main w-62.5 h-13 rounded-3xl mt-auto">
             Продолжить / Next
           </button>
         </form>
