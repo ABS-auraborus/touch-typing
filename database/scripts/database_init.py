@@ -78,6 +78,17 @@ def init_db_users():
         )
         ''')
 
+        db_cur.execute('''
+        CREATE TABLE IF NOT EXISTS ACHIVMENTS (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            NAME TEXT UNIQUE NOT NULL,
+            DESCRIPTION TEXT NOT NULL,
+            PATH TEXT NOT NULL,
+            CONDITION_TYPE TEXT NOT_NULL,
+            CONDITION_VALUE INTEGER NOT_NULL
+        )
+        ''')
+        
         db_cur.close()
 
 def init_databases():
