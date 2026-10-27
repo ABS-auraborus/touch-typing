@@ -10,14 +10,13 @@ from backend.app.crud import database_inquiry
 from backend.app.services import validator
 from backend.scripts import database_add
 from backend.app.core import crypto
+from backend.app.schemas.user_data_schema import UserDataSchema
 
 router = APIRouter()
 
-database_init.init_databases()
+user_data_schema.UserDataSchema
 
-class UserDataSchema(BaseModel):
-    login: str
-    password: str
+database_init.init_databases()
 
 @router.get("/data")
 def get_json(data_type: str, language: str, difficult: int = 0):
