@@ -3,7 +3,8 @@ import Container from "../components/Container";
 import UserIcon from "../components/UserIcon";
 
 const Header = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
+
   return (
     <header className="bg-blue-accent text-white">
       <Container>
@@ -13,13 +14,13 @@ const Header = () => {
           <Link to="/rating">Рейтинг</Link>
           <Link to="/statistics">Статистика</Link>
           <Link to="/achievements">Достижения</Link>
-          {!isLoggedIn && (
+
+          {isLoggedIn ? (
+            <UserIcon avatarUrl="/public/icons/user-logged-img.svg" />
+          ) : (
             <Link to="/login">
               <UserIcon avatarUrl="/public/icons/user-unlogged-img.svg" />
             </Link>
-          )}
-          {isLoggedIn && (
-            <UserIcon avatarUrl="/public/icons/user-logged-img.svg" />
           )}
         </nav>
       </Container>
