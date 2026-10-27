@@ -1,4 +1,6 @@
+import React from "react";
 import ProgressBar from "./ProgressBar";
+import Skeleton from "./Skeleton";
 
 interface AchievementProps {
   children: string;
@@ -7,6 +9,12 @@ interface AchievementProps {
 }
 
 const AchievementBlock = ({children, imageURL, progress}: AchievementProps) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const HandleLoad = () => {
+    setIsLoading(false);
+  };
+
   const achievementProgress = progress;
   return (
     <li
@@ -14,7 +22,13 @@ const AchievementBlock = ({children, imageURL, progress}: AchievementProps) => {
     >
       <div className="flex gap-3 items-center">
         <div>
-          <img src={imageURL} alt="image" className="size-full" />
+          {isLoading && <Skeleton className="size-25 bg-indigo-200" />}
+          <img
+            src={imageURL}
+            alt="Achievement Image"
+            onLoad={() => HandleLoad()}
+            className={`size-full ${isLoading ? "hidden" : "block"}`}
+          />
         </div>
         <p className="font-jet-m text-xl">{children}</p>
       </div>
