@@ -1,19 +1,26 @@
 import {Link} from "react-router-dom";
 import Container from "../components/Container";
-import Logo from "../components/Logo";
+import UserIcon from "../components/UserIcon";
 
 const Header = () => {
+  const isLoggedIn = false;
   return (
     <header className="bg-blue-accent text-white">
-      <Logo className="absolute top-0 left-0" />
       <Container>
-        <nav className="flex gap-4 py-6 justify-between font-jet-r">
+        <nav className="flex gap-4 py-6 justify-between items-center font-jet-r">
           <Link to="/">Главная</Link>
           <Link to="/training">Тренажёр</Link>
           <Link to="/rating">Рейтинг</Link>
           <Link to="/statistics">Статистика</Link>
           <Link to="/achievements">Достижения</Link>
-          <Link to="/auth">Войти/Создать аккаунт</Link>
+          {!isLoggedIn && (
+            <Link to="/login">
+              <UserIcon avatarUrl="/public/icons/user-unlogged-img.svg" />
+            </Link>
+          )}
+          {isLoggedIn && (
+            <UserIcon avatarUrl="/public/icons/user-logged-img.svg" />
+          )}
         </nav>
       </Container>
     </header>
