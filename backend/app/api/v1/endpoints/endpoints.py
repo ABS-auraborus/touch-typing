@@ -1,23 +1,19 @@
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel
 import sqlite3
 import os
 import json
 
-from . import database_interaction
-from . import database_init
-from . import database_inquiry
-from . import validator
-from . import database_add
-from . import crypto
+from backend.app.core import database_interaction
+from backend.scripts import database_init
+from backend.app.crud import database_inquiry
+from backend.app.services import validator
+from backend.scripts import database_add
+from backend.app.core import crypto
+from backend.app.schemas.user_schema import UserDataSchema
 
 router = APIRouter()
 
 database_init.init_databases()
-
-class UserDataSchema(BaseModel):
-    login: str
-    password: str
 
 @router.get("/data")
 def get_json(data_type: str, language: str, difficult: int = 0):

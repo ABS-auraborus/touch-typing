@@ -1,7 +1,7 @@
 import hmac
 import os
 
-from . import crypto
+from backend.app.core import crypto
 
 def verify_password(password: str, hashed_password: str, salt_db: str):
     new_hash = crypto.hasher(password, salt_db)

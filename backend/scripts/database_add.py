@@ -1,8 +1,8 @@
 import sqlite3
 
-from . import database_interaction
-from . import database_init
-from . import crypto
+from backend.app.core import database_interaction
+from backend.scripts import database_init
+from backend.app.core import crypto
 
 database_init.init_databases()
 
