@@ -1,7 +1,7 @@
 import sqlite3
 import os
     
-from . import database_interaction
+from backend.app.core import database_interaction
 
 def init_db_sentences():
     with database_interaction.get_connection("SENTENCES") as con:

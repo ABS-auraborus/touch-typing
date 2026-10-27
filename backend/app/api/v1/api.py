@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from backend.app.api.v1.endpoints import items
-from database.scripts.requests import router as training_router
+from backend.app.services.requests import router as training_router
 
 api_router = APIRouter()
 api_router.include_router(items.router, prefix="/items", tags=["items"])

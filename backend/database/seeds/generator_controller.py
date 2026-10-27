@@ -1,9 +1,9 @@
-from . import database_init
-from . import database_interaction
-from . import database_add
-from . import generator
-from . import string
-from . import random
+from backend.scripts import database_init
+from backend.app.core import database_interaction
+from backend.scripts import database_add
+from backend.database.seeds import generator
+import string
+import random
 
 database_init.init_databases()
 

@@ -4,12 +4,12 @@ import sqlite3
 import os
 import json
 
-from . import database_interaction
-from . import database_init
-from . import database_inquiry
-from . import validator
-from . import database_add
-from . import crypto
+from backend.app.core import database_interaction
+from backend.scripts import database_init
+from backend.app.crud import database_inquiry
+from backend.app.services import validator
+from backend.scripts import database_add
+from backend.app.core import crypto
 
 router = APIRouter()
 

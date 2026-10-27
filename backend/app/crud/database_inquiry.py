@@ -1,8 +1,8 @@
 import sqlite3
 import os
 
-from . import database_init
-from . import database_interaction
+from backend.scripts import database_init
+from backend.app.core import database_interaction
 
 database_init.init_databases()
 
