@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 const LoginPage = () => {
   return (
     <main className="flex justify-center items-center">
@@ -13,10 +15,11 @@ const LoginPage = () => {
             type="password"
             name="password"
           />
-          <div className="w-full -mt-5">
-            <button className="cursor-pointer select-none">
-              Забыли пароль?
-            </button>
+          <div className="flex justify-between w-full -mt-5 text-lg select-none">
+            <button className="cursor-pointer">Забыли пароль?</button>
+            <Link to="/registration" className="cursor-pointer">
+              Еще нет аккаунта?
+            </Link>
           </div>
           <div className="flex gap-4 justify-center items-center">
             <label className="cursor-pointer select-none" htmlFor="remember-me">

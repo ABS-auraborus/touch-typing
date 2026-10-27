@@ -1,5 +1,6 @@
 import React from "react";
 import Container from "../components/Container";
+import {Link} from "react-router-dom";
 
 const RegistrationPage = () => {
   return (
@@ -17,6 +18,11 @@ const RegistrationPage = () => {
             type="password"
             name="password"
           />
+          <div className="flex justify-end w-full -mt-5 text-lg select-none">
+            <Link to="/login" className="cursor-pointer">
+              Уже есть аккаунт?
+            </Link>
+          </div>
           <div className="flex gap-4 justify-center items-center">
             <label className="cursor-pointer" htmlFor="remember-me">
               Запомнить меня
