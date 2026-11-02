@@ -14,3 +14,5 @@
 
 - **Frontend:** http://localhost:5173
 - **Backend API Docs:** http://localhost:8000/docs
+
+- touch-typing is a command pet-project made by auraborus team during the hackaton "КиберРывок"
