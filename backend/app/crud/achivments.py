@@ -14,7 +14,7 @@ def achievement_counter(user: str, achievement: str):
                 UPDATE USER_ACHIVEMENTS
                 SET CURRENT_VALUE = CURRENT_VALUE + 1
                 WHERE USER_ID = (
-                    SELECT ID FROM USERS WHERE NAME = ?
+                    SELECT ID FROM USERS WHERE LOGIN = ?
                 ) 
                 AND ACHIEVEMENT_ID = (
                     SELECT ID FROM ACHIEVEMENTS WHERE NAME = ?
