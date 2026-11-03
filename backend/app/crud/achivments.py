@@ -21,7 +21,11 @@ def achievement_counter(user: str, achievement: str):
                 )
             ''', (user, achievement))
 
+            con.commit()
+
             db_cur.close()
+
+        return 1
     except sqlite3.Error as e:
         print(f"Err: cant boost value: {e}")
         return None
