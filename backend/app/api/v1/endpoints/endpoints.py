@@ -10,17 +10,16 @@ from backend.app.services import validator
 from backend.scripts import database_add
 from backend.app.core import crypto
 from backend.app.schemas.user_schema import UserDataSchema
+from backend.app.services import data_services
 
 router = APIRouter()
-
-database_init.init_databases()
 
 @router.get("/data")
 def get_json(data_type: str, language: str, difficult: int = 0):
     data_type = data_type.strip().upper()
     language = language.strip().upper()
 
-    if language in ["RUS", "ENG"] and data_type in ["SENTENCES", "WORDS", "CHARS"] and difficult in [0, 1, 2]:
+    if  data_services.route_data_verifire(language, data_type, difficult):
         table_name = f"{language}_{data_type}"
         naming_db = f"{data_type}.db"
     else:
