@@ -51,3 +51,22 @@ def get_user(login: str):
         print(f"Err: no user in db: {e}")
         return None
     
+def get_id(database_name: str, data_table_name: str, column_name: str, data_name: str):
+    try:
+        with database_interaction.get_connection(database_name) as con:
+            db_cur = con.cursor()
+
+            db_cur.execute(f'''
+                SELECT ID
+                FROM {data_table_name}
+                WHERE {column_name} = ?
+            ''', (data_name,))
+
+            data_id = db_cur.fetchall()
+
+            db_cur.close()
+
+        return data_id[0][0] if data_id else None
+    except sqlite3.Error as e:
+        print(f"Err: unexpected name: {e}")
+        return None
