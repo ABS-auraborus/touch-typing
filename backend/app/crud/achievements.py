@@ -4,6 +4,8 @@ from backend.app.core import database_interaction
 from backend.app.crud import database_inquiry
 
 def insert_achievements(user: str):
+    user_id = database_inquiry.get_id("USERS", "USERS", "LOGIN", user)
+
     try:
         with database_interaction.get_connection("USERS") as con:
             db_cur = con.cursor()
