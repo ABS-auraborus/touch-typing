@@ -16,3 +16,4 @@
 - **Backend API Docs:** http://localhost:8000/docs
 
 - touch-typing is a command pet-project made by auraborus team during the hackaton "КиберРывок"
+- It is also a very ambicious and wonderful project OAT
